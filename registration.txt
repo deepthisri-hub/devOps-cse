@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tech Event Registration</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2563eb;
+      margin-bottom: 24px;
+      font-size: 2rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .form-field {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+      font-size: 1rem;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1e4ed8;
+    }
+
+    #successMessage {
+      text-align: center;
+      font-weight: bold;
+      color: green;
+      margin-bottom: 15px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Tech Registration</h2>
+    <div id="successMessage">Registration Successful!</div>
+
+    <form id="registrationForm">
+      <label>Full Name</label>
+      <input type="text" id="name" class="form-field" required />
+
+      <label>Email</label>
+      <input type="email" id="email" class="form-field" required />
+
+      <label>Phone Number</label>
+      <input type="tel" id="phone" class="form-field" pattern="[0-9]{10}" required />
+
+      <label>College Name</label>
+      <input type="text" id="college" class="form-field" required />
+
+      <label>Age</label>
+      <select id="age" class="form-field" required>
+        <option value="">-- Select Age --</option>
+      </select>
+
+      <label>Date of Birth</label>
+      <input type="date" id="dob" class="form-field" required />
+
+      <label>Gender</label>
+      <div class="radio-group">
+        <label><input type="radio" name="gender" value="Male" required /> Male</label>
+        <label><input type="radio" name="gender" value="Female" /> Female</label>
+        <label><input type="radio" name="gender" value="Other" /> Other</label>
+      </div>
+
+      <label>Year of Study</label>
+      <div class="radio-group">
+        <label><input type="radio" name="year" value="1st Year" required /> 1st</label>
+        <label><input type="radio" name="year" value="2nd Year" /> 2nd</label>
+        <label><input type="radio" name="year" value="3rd Year" /> 3rd</label>
+        <label><input type="radio" name="year" value="Final Year" /> Final</label>
+      </div>
+
+      <label>Select Event</label>
+      <select id="event" class="form-field" required>
+        <option value="">-- Choose an event --</option>
+        <option value="hackathon">Hackathon</option>
+        <option value="techquiz">Tech Quiz</option>
+        <option value="aiworkshop">AI Workshop</option>
+      </select>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    // Populate age dropdown from 1 to 30
+    const ageSelect = document.getElementById("age");
+    for (let i = 1; i <= 30; i++) {
+      ageSelect.innerHTML += `<option value="${i}">${i}</option>`;
+    }
+
+    // Form submission handler
+    document.getElementById("registrationForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const requiredFields = ["name", "email", "phone", "college", "age", "dob", "event"];
+      for (let id of requiredFields) {
+        if (!document.getElementById(id).value.trim()) {
+          alert("Please fill out all fields.");
+          return;
+        }
+      }
+
+      const gender = document.querySelector('input[name="gender"]:checked');
+      const year = document.querySelector('input[name="year"]:checked');
+
+      if (!gender || !year) {
+        alert("Please select gender and year of study.");
+        return;
+      }
+
+      document.getElementById("successMessage").style.display = "block";
+      this.style.display = "none";
+    });
+  </script>
+</body>
+</html>
